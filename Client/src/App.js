@@ -6,9 +6,14 @@ import SignUp from "./Signup";
 // import Landing from "./Landing";
 import Landing from "./Components/Landing";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import store from './Store';
 
 function App() {
-  return (<Router>
+  return (
+  <Provider store={store}> 
+  <Router>
     <div className="App">
 
         <nav className="navbar navbar-expand-lg navbar-light fixed-top">
@@ -39,6 +44,7 @@ function App() {
       </div>
     </div>
     </Router>
+    </Provider>
   );
 }
 

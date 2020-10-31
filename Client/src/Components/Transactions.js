@@ -36,7 +36,7 @@ class Transactions extends Component{
     }
 
     gatherTransactions(){
-        axios.post('http://192.168.86.119:3000/transactions',{
+        axios.post('http://192.168.86.119:3001/transactions',{
           uid: '5f6f74819c722c01406e793c'
       }).then((res) => {
           // console.log(res);

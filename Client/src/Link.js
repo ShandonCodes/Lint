@@ -12,7 +12,7 @@ class Link extends React.Component {
 onSuccess(token, metadata){
     // send token to server
     console.log(this.props);
-    axios.post('http://192.168.86.119:3000/get_access_token',{
+    axios.post('http://192.168.86.119:3001/get_access_token',{
         public_token: token,
         uid: this.props.uid
     }).then((res) => {

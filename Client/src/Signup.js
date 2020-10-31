@@ -34,7 +34,7 @@ class SignUp extends Component{
     submitForm(event){
         event.preventDefault();
 
-        axios.post('http://192.168.86.119:3000/register',{
+        axios.post('http://192.168.86.119:3001/register',{
             email: this.state.email,
             password: this.state.password
         }).then((res) => {

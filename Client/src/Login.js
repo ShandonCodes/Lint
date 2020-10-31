@@ -1,15 +1,15 @@
 import React, {  Component } from "react";
 import axios from 'axios';
 import {Redirect} from "react-router";
+import { connect } from 'react-redux';
+import { loginUser } from './actions/loginActions';
 
 class Login extends Component{
     constructor(props){
         super(props);
 
         this.state = {email: '',
-                      password: '',
-                      isLoggedin: false,
-                      uid: ''
+                      password: ''
         };
 
         this.updateEmail = this.updateEmail.bind(this);
@@ -33,24 +33,14 @@ class Login extends Component{
     submitForm(event){
         event.preventDefault();
 
-        axios.post('http://192.168.86.119:3000/login',{
-            email: this.state.email,
-            password: this.state.password
-        }).then((res) => {
-            console.log(res);
-            if (res.status === 200){
-                this.setState({isLoggedin: true, uid: res.data.id});
-            }
-            else{
-                alert("Invalid log in");
-            }
-            
-        }).catch(err => console.log(err))
+        this.props.loginUser(this.state.email, this.state.password);
+
+        console.log(this.props);
     }
 
     render(){
-        if (this.state.isLoggedin === true) 
-            return (<Redirect to={{pathname: "/overview", state: {uid: this.state.uid}}}/>)
+        //if (this.props.isLoggedin === true) 
+        //    return (<Redirect to={{pathname: "/overview", state: {uid: this.state.uid}}}/>)
             
         return (
             <form onSubmit={this.submitForm}>
@@ -79,4 +69,8 @@ class Login extends Component{
     }
 }
 
-export default Login;
+const mapStateToProps = state => ({
+    uid: state.login.uid,
+    isLoggedin: state.login.isLoggedin
+});
+export default connect(mapStateToProps, { loginUser })(Login);

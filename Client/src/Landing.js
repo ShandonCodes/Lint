@@ -37,7 +37,7 @@ class Landing extends Component{
   }
 
   gatherTransactions(){
-    axios.post('http://192.168.86.119:3000/transactions',{
+    axios.post('http://192.168.86.119:3001/transactions',{
       uid: this.state.uid
   }).then((res) => {
       // console.log(res);
@@ -55,7 +55,7 @@ class Landing extends Component{
   
 generateLinkToken(){
 
-  axios.post('http://192.168.86.119:3000/create_link_token',{
+  axios.post('http://192.168.86.119:3001/create_link_token',{
       uid: this.state.uid
   }).then((res) => {
       // console.log(res);
