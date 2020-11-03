@@ -3,12 +3,10 @@ import Header from "./Header";
 import AccountHolder from "./Accounts";
 import Transactions from "./Transactions";
 import {Col, Container, Row} from 'reactstrap';
+import Link from './Link';
+import {connect} from 'react-redux';
 
 class Landing extends Component{
-    constructor(props){
-        super(props)
-        console.log(props)
-    }
 
     render(){
         return (
@@ -37,4 +35,7 @@ class Landing extends Component{
     }
 } 
 
-export default Landing;
+const mapStateToProps = state => ({
+
+    });
+export default connect(mapStateToProps, {})(Landing);

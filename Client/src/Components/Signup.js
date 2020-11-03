@@ -1,10 +1,12 @@
 import React, {  Component } from "react";
-import axios from 'axios';
+import axios from "axios";
 import {Redirect} from "react-router";
-import { connect } from 'react-redux';
-import { loginUser } from './actions/loginActions';
+import {Container} from 'reactstrap';
+import {connect} from 'react-redux';
+import {signupUser} from '../actions/signupActions'; 
 
-class Login extends Component{
+class SignUp extends Component{
+
     constructor(props){
         super(props);
 
@@ -33,18 +35,17 @@ class Login extends Component{
     submitForm(event){
         event.preventDefault();
 
-        this.props.loginUser(this.state.email, this.state.password);
-
-        console.log(this.props);
+        this.props.signupUser(this.state.email, this.state.password);
     }
 
     render(){
-        //if (this.props.isLoggedin === true) 
-        //    return (<Redirect to={{pathname: "/overview", state: {uid: this.state.uid}}}/>)
-            
-        return (
+            if (this.props.formCompleted){
+                return (<Redirect to="/sign-in" />)
+            }
+            return (
+                <>
             <form onSubmit={this.submitForm}>
-                <h3>Sign In</h3>
+                <h3>Sign Up</h3>
 
                 <div className="form-group">
                     <label>Email address</label>
@@ -56,21 +57,15 @@ class Login extends Component{
                     <input type="password" className="form-control" placeholder="Enter password" value={this.state.password} onChange={this.updatePassword}/>
                 </div>
 
-                <div className="form-group">
-                    <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                        <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
-                    </div>
-                </div>
-
                 <button type="submit" className="btn btn-primary btn-block">Submit</button>
             </form>
+            </>
         )
     }
 }
 
 const mapStateToProps = state => ({
-    uid: state.login.uid,
-    isLoggedin: state.login.isLoggedin
+        formCompleted: state.signup.formCompleted
 });
-export default connect(mapStateToProps, { loginUser })(Login);
+
+export default connect(mapStateToProps, { signupUser })(SignUp);

@@ -13,6 +13,8 @@ import {
     DropdownItem,
     NavbarText
   } from 'reactstrap';
+import Link from './Link';
+import {connect} from 'react-redux';
 
 class Header extends Component{
     constructor(props){
@@ -28,10 +30,12 @@ class Header extends Component{
                         <Nav className="mr-auto" navbar>
                         </Nav>
                     </Collapse>
+                    <Link/>
                 </Navbar>
             </div>
         );
     }
 } 
-
-export default Header;
+const mapStateToProps = state => ({
+    });
+export default connect(mapStateToProps, {},)(Header);

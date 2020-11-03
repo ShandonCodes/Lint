@@ -1,9 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-import Login from "./Login";
-import SignUp from "./Signup";
-// import Landing from "./Landing";
+import Login from "./Components/Login";
+import SignUp from "./Components/Signup";
 import Landing from "./Components/Landing";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { Provider } from 'react-redux';
@@ -15,7 +14,7 @@ function App() {
   <Provider store={store}> 
   <Router>
     <div className="App">
-
+{/*
         <nav className="navbar navbar-expand-lg navbar-light fixed-top">
         <div className="container">
           <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
@@ -30,7 +29,7 @@ function App() {
           </div>
         </div>
       </nav>
-      
+   */}   
 
       <div className="auth-wrapper">
         <div className="auth-inner">

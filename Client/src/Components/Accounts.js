@@ -17,30 +17,26 @@ import {
     Table
   } from 'reactstrap';
 import axios from 'axios';
+import {connect} from 'react-redux';
+import { getAccounts, parseAccounts } from '../actions/accountActions';
 const containerStyle = {
     border: '5px solid pink'
 
 }
 
 class AccountHolder extends Component{
-    constructor(props){
-        super(props);
 
-        this.state = {accounts: ['Accoutn #1', 'Account #2', 'Account #3'], rawAccounts: []}
+    componentDidMount(){
+        this.props.getAccounts(this.props.uid); 
+      }
 
-        // this.setState({})
-
-        this.generateAccoutEntries = this.generateAccoutEntries.bind(this);
-        this.gatherAccountEntries = this.gatherAccountEntries.bind(this);
-    }
-
-    componentDidMount(props){
-        this.generateAccoutEntries();
-        this.gatherAccountEntries();
+    componentDidUpdate(){
+        if (this.props.rawAccounts.length > 0 && this.props.displayElements.length === 0)
+            this.props.parseAccounts(this.props.rawAccounts); 
       }
 
     render(){
-        if (!this.state.displayElements || this.state.displayElements.length === 0){
+        if (!this.props.displayElements || this.props.displayElements.length === 0){
             return (<>
 
                     <div style={containerStyle}>
@@ -56,45 +52,16 @@ class AccountHolder extends Component{
                             <tr>
                                 <th>Name</th>
                             </tr>
-                            {this.state.displayElements}
+                            {this.props.displayElements}
                         </tbody>
                     </Table>
             </div>
         </>);
     }
-
-    gatherAccountEntries(){
-        axios.post('http://192.168.86.119:3001/accounts',{
-          uid: '5f6f74819c722c01406e793c'
-      }).then((res) => {
-          // console.log(res);
-          if (res.status === 200){
-              this.setState({rawAccounts: res.data.accounts});
-              this.generateAccoutEntries();
-          }
-          else{
-              alert("Error");
-          }
-          
-      }).catch(err => console.log(err))
-      }
-
-    // componentDidMount(props){
-    //     this.generateTransactionEntries();
-    //     this.gatherTransactions();
-    //   }
-
-    generateAccoutEntries(){
-        let elements = this.state.rawAccounts.map(rawAccount => (
-            <tr>
-                <td>
-                    {rawAccount.item_id}
-                </td>
-            </tr>
-          ));
-      
-          this.setState({displayElements: elements})
-    }
 } 
-
-export default AccountHolder;
+const mapStateToProps = state => ({
+        rawAccounts: state.account.rawAccounts,
+        displayElements: state.account.displayElements,
+        uid: state.login.uid
+});
+export default connect(mapStateToProps, {getAccounts, parseAccounts})(AccountHolder);

@@ -1,16 +1,15 @@
 import React, {  Component } from "react";
-import axios from "axios";
+import axios from 'axios';
 import {Redirect} from "react-router";
-import {Container} from 'reactstrap';
+import { connect } from 'react-redux';
+import { loginUser, generateLinkToken, getTransactions} from '../actions/loginActions';
 
-class SignUp extends Component{
-
+class Login extends Component{
     constructor(props){
         super(props);
 
         this.state = {email: '',
-                      password: '',
-                      formCompleted: false
+                      password: ''
         };
 
         this.updateEmail = this.updateEmail.bind(this);
@@ -34,23 +33,25 @@ class SignUp extends Component{
     submitForm(event){
         event.preventDefault();
 
-        axios.post('http://192.168.86.119:3001/register',{
-            email: this.state.email,
-            password: this.state.password
-        }).then((res) => {
-            console.log(res);
-            this.setState({formCompleted: true});
-        }).catch(err => console.log(err))
+        this.props.loginUser(this.state.email, this.state.password);
+    }
+
+    componentDidUpdate(){
+        if (this.props.uid !== ''){
+
+            this.props.generateLinkToken(this.props.uid);
+            this.props.getTransactions(this.props.uid);
+        }
     }
 
     render(){
-            if (this.state.formCompleted ===true){
-                return (<Redirect to="/sign-in" />)
-            }
-            return (
-                <>
+        if (this.props.isLoggedin){
+            return (<Redirect to={{pathname: "/overview", state: {uid: this.state.uid}}}/>)
+        }
+            
+        return (
             <form onSubmit={this.submitForm}>
-                <h3>Sign Up</h3>
+                <h3>Sign In</h3>
 
                 <div className="form-group">
                     <label>Email address</label>
@@ -62,11 +63,23 @@ class SignUp extends Component{
                     <input type="password" className="form-control" placeholder="Enter password" value={this.state.password} onChange={this.updatePassword}/>
                 </div>
 
+                <div className="form-group">
+                    <div className="custom-control custom-checkbox">
+                        <input type="checkbox" className="custom-control-input" id="customCheck1" />
+                        <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
+                    </div>
+                </div>
+
                 <button type="submit" className="btn btn-primary btn-block">Submit</button>
             </form>
-            </>
         )
     }
 }
 
-export default SignUp;
+const mapStateToProps = state => ({
+    uid: state.login.uid,
+    isLoggedin: state.login.isLoggedin,
+    link_token: state.login.link_token,
+    transactions: state.login.transactions
+});
+export default connect(mapStateToProps, { loginUser, generateLinkToken, getTransactions})(Login);

@@ -58,6 +58,7 @@ app.post('/login', (req, res) => {
 
 app.post('/create_link_token', (req, res) => {
         let {uid} = req.body;
+        console.log(`Recieved: ${uid} as token!!!`);
         User.findById(uid, (err, doc) => {
             if (err){
                 res.sendStatus(400);
