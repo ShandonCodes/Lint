@@ -107,7 +107,10 @@ app.post('/transactions', (req, res) => {
         let {uid} = req.body;
 
         User.findById(uid, (err, doc) => {
-                //console.log(doc.transactions);
+            if (err){
+                res.sendStatus(400);
+                return;
+            }
                 res.send({transactions : doc.transactions});
             });
     });
@@ -116,6 +119,10 @@ app.post('/accounts', (req, res) => {
         let {uid} = req.body;
 
         User.findById(uid, (err, doc) => {
+            if (err){
+                res.sendStatus(400);
+                return;
+            }
                 res.send({accounts : doc.items});
             });
     });
