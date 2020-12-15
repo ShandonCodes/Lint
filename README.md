@@ -22,6 +22,14 @@ This will install all the required packages and libraries for using both the Nod
 
 - Update both of the **key.js** files (one in Client and in Server) to use the correct Plaid credentials supplied to you by Plaid
 
+Update the MonogoDB server connection url
+    ```cd Server```
+- Open **app.js**
+- Edit the mongoose.connect() string to use the IP and PORT your mongo server is running on
+
+>Note: In my workflow (using docker-compose) I run my mongo server on PORT 9090 instead of the default mongodb port of 27017
+> so my connection string would be __mongodb://localhost:9090/users?authSource=admin__
+
 ## Usage
 
 Run the MongoDB server using the following command:

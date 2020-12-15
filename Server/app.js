@@ -18,7 +18,7 @@ app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors())
 
-mongoose.connect('mongodb://192.168.86.119:9090/users?authSource=admin', {user: "root", pass:"example"})
+mongoose.connect('mongodb://192.168.86.119:9090/users?authSource=admin', {user: "root", pass:"example", useNewUrlParser: true})
 
 const db = mongoose.connection;
 let userSchema = mongoose.Schema({
