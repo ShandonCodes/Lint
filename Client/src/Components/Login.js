@@ -3,6 +3,7 @@ import axios from 'axios';
 import {Redirect} from "react-router";
 import { connect } from 'react-redux';
 import { loginUser, generateLinkToken, getTransactions} from '../actions/loginActions';
+import { Button, Container, Grid} from '@material-ui/core';
 
 class Login extends Component{
     constructor(props){
@@ -50,28 +51,38 @@ class Login extends Component{
         }
             
         return (
-            <form onSubmit={this.submitForm}>
-                <h3>Sign In</h3>
+            <Container>
+                <Grid
+                    container
+                    direction="column"
+                    justify="center"
+                    alignItems="center"
+                >
+                    <h3>Sign In</h3>
 
-                <div className="form-group">
-                    <label>Email address</label>
-                    <input type="email" className="form-control" placeholder="Enter email" value={this.state.email} onChange={this.updateEmail}/>
-                </div>
-
-                <div className="form-group">
-                    <label>Password</label>
-                    <input type="password" className="form-control" placeholder="Enter password" value={this.state.password} onChange={this.updatePassword}/>
-                </div>
-
-                <div className="form-group">
-                    <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                        <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
+                    <div className="form-group">
+                        <label>Email address</label>
+                        <input type="email" className="form-control" placeholder="Enter email" value={this.state.email} onChange={this.updateEmail}/>
                     </div>
-                </div>
 
-                <button type="submit" className="btn btn-primary btn-block">Submit</button>
-            </form>
+                    <div className="form-group">
+                        <label>Password</label>
+                        <input type="password" className="form-control" placeholder="Enter password" value={this.state.password} onChange={this.updatePassword}/>
+                    </div>
+
+                    <div className="form-group">
+                        <div className="custom-control custom-checkbox">
+                            <input type="checkbox" className="custom-control-input" id="customCheck1" />
+                            <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
+                        </div>
+                    </div>
+
+                    <Button variant="contained" color="primary" onClick={this.submitForm}>Login</Button>
+                </Grid>
+            </Container>
+            // <form onSubmit={this.submitForm}>
+                
+            // </form>
         )
     }
 }

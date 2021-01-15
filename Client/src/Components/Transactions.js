@@ -19,11 +19,7 @@ import {
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {parseTransactions} from '../actions/transactionActions'
-
-const containerStyle = {
-    border: '5px solid green',
-
-}
+import {CardHeader, Typography} from '@material-ui/core';
 
 class Transactions extends Component{
 
@@ -35,14 +31,19 @@ class Transactions extends Component{
     render(){
         if (!this.props.displayElements || this.props.displayElements.length === 0){
             return (<>
-                <div style={containerStyle}>
-                        <h1>Transactions</h1>
-                </div>
+                <CardHeader title="Transactions" titleTypographyProps={{variant:'h4'}}>
+                <Typography variant="h2" gutterBottom>
+                    Transactions
+                </Typography>
+            </CardHeader>
             </>)
         }
         return (<>
-            <div style={containerStyle}>
-                    <h1>Transactions</h1>
+                <CardHeader title="Transactions" titleTypographyProps={{variant:'h4'}}>
+                    <Typography variant="h2" gutterBottom>
+                        Transactions
+                    </Typography>
+                </CardHeader>
                 <Table striped>
                     <tbody>
                     <tr>
@@ -53,8 +54,6 @@ class Transactions extends Component{
                         {this.props.displayElements}
                     </tbody>
                 </Table>
-                
-            </div>
         </>);
     }
 } 

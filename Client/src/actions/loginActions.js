@@ -9,11 +9,14 @@ export const loginUser = (email, password, callback) => dispatch => {
                             type: LOGIN_USER,
                             payload: {uid: res.data.id, isLoggedin: true}
                         })
+
+                    generateLinkToken(res.data.id)
                 }
     });
 }
 
 export const generateLinkToken = (uid) => dispatch => {
+    console.log(uid);
     axios.post('http://192.168.86.119:3001/create_link_token',{uid})
          .then(res => {
                 if (res.status === 200){
@@ -25,7 +28,7 @@ export const generateLinkToken = (uid) => dispatch => {
     });
 }
 
-export const getTransactions = (uid) => dispatch => {
+export const getTransactions = (uid, callback) => dispatch => {
     axios.post('http://192.168.86.119:3001/transactions',{uid})
          .then(res => {
                 if (res.status === 200){
@@ -33,6 +36,10 @@ export const getTransactions = (uid) => dispatch => {
                             type: GET_TRANSACTIONS,
                             payload: {transactions: res.data.transactions}
                         })
+
+                        if (callback){
+                            callback(res.data.transactions);
+                        }
                 }
     });
 }

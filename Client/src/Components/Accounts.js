@@ -19,10 +19,7 @@ import {
 import axios from 'axios';
 import {connect} from 'react-redux';
 import { getAccounts, parseAccounts } from '../actions/accountActions';
-const containerStyle = {
-    border: '5px solid pink'
-
-}
+import {CardHeader, Typography} from '@material-ui/core';
 
 class AccountHolder extends Component{
 
@@ -39,23 +36,29 @@ class AccountHolder extends Component{
         if (!this.props.displayElements || this.props.displayElements.length === 0){
             return (<>
 
-                    <div style={containerStyle}>
-                        <h1>Accounts</h1>
-                    </div>
+                <CardHeader title="Accounts" titleTypographyProps={{variant:'h4'}}>
+                    <Typography variant="h2" gutterBottom>
+                        Accounts
+                    </Typography>
+                </CardHeader>
             </>)
         }
         return (<>
-            <div style={containerStyle}>
-                        <h1>Accounts</h1>
-                    <Table striped>
-                        <tbody>
-                            <tr>
-                                <th>Name</th>
-                            </tr>
-                            {this.props.displayElements}
-                        </tbody>
-                    </Table>
-            </div>
+            <CardHeader title="Accounts" titleTypographyProps={{variant:'h4'}}>
+                <Typography variant="h2" gutterBottom>
+                    Accounts
+                </Typography>
+            </CardHeader>
+        
+            
+            <Table striped>
+                <tbody>
+                    <tr>
+                        <th>Name</th>
+                    </tr>
+                    {this.props.displayElements}
+                </tbody>
+            </Table>
         </>);
     }
 } 

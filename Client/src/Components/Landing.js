@@ -2,33 +2,42 @@ import React, {Component} from 'react';
 import Header from "./Header";
 import AccountHolder from "./Accounts";
 import Transactions from "./Transactions";
-import {Col, Container, Row} from 'reactstrap';
+import {Col, Row} from 'reactstrap';
 import Link from './Link';
 import {connect} from 'react-redux';
+import {Container, Paper, Grid, Card, Divider} from '@material-ui/core';
 
 class Landing extends Component{
 
     render(){
         return (
             <>
-            <Header></Header>
-            <Container fluid={true}>
-                {/* <Row>
-                    <Col>
-                    <Header></Header>
-                    </Col>
-                
-                </Row> */}
-                
-                <Row>
-                    <Col xs="auto">
+            
+            <Container>
+            <Paper>
+                <Header/>
+                <Grid
+                    container
+                    direction="row"
+                    justify="flex-center"
+                    alignItems="flex-start"
+                    spacing={3}
+                >
+                <Grid item>
+                    <Card variant="outlined">
                         <AccountHolder></AccountHolder>
-                    </Col>
-                    <Col>
+                    </Card>
+                </Grid>
+                <Divider orientation="vertical" flexItem />
+                <Grid item xs={8}>
+                    <Card variant="outlined">
                         <Transactions></Transactions>
-                    </Col>
-                </Row>
-                
+                    </Card>
+                </Grid>
+
+                </Grid>
+            </Paper>
+            
             </Container>
         
             </>);

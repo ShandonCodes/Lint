@@ -15,6 +15,7 @@ import {
   } from 'reactstrap';
 import Link from './Link';
 import {connect} from 'react-redux';
+import {Toolbar, AppBar, Iconbutton, Typography, Button, IconButton} from '@material-ui/core'
 
 class Header extends Component{
     constructor(props){
@@ -23,16 +24,18 @@ class Header extends Component{
 
     render(){
         return (
+            <>
             <div>
-                <Navbar color="light" light expand="md">
-                    <NavbarBrand href="/">Lint</NavbarBrand>
-                    <Collapse isOpen={true} navbar>
-                        <Nav className="mr-auto" navbar>
-                        </Nav>
-                    </Collapse>
-                    <Link/>
-                </Navbar>
+                <AppBar position="static">
+                    <Toolbar style={{display: 'flex'}}>
+                        <Typography variant="h5">
+                            Lint
+                        </Typography>
+                        <Link/>
+                    </Toolbar>
+                </AppBar>
             </div>
+        </>
         );
     }
 } 

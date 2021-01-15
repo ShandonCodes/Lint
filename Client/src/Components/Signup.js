@@ -1,9 +1,9 @@
 import React, {  Component } from "react";
 import axios from "axios";
 import {Redirect} from "react-router";
-import {Container} from 'reactstrap';
 import {connect} from 'react-redux';
 import {signupUser} from '../actions/signupActions'; 
+import { Button, Container, Grid} from '@material-ui/core';
 
 class SignUp extends Component{
 
@@ -23,18 +23,16 @@ class SignUp extends Component{
     updateEmail(event){
         this.setState({
             email: event.target.value
-        }, () => console.log(this.state));
+        });
     }
 
     updatePassword(event){
         this.setState({
             password: event.target.value
-        }, () => console.log(this.state));
+        });
     }
 
-    submitForm(event){
-        event.preventDefault();
-
+    submitForm(){
         this.props.signupUser(this.state.email, this.state.password);
     }
 
@@ -44,21 +42,27 @@ class SignUp extends Component{
             }
             return (
                 <>
-            <form onSubmit={this.submitForm}>
-                <h3>Sign Up</h3>
+                <Container maxWidth='sm'>
+                <Grid
+                    container
+                    direction="column"
+                    justify="center"
+                    alignItems="center"
+                >
+                            <h3>Sign Up</h3>
 
-                <div className="form-group">
-                    <label>Email address</label>
-                    <input type="email" className="form-control" placeholder="Enter email" value={this.state.email} onChange={this.updateEmail}/>
-                </div>
+                            <div className="form-group">
+                                <label>Email address</label>
+                                <input type="email" className="form-control" placeholder="Enter email" value={this.state.email} onChange={this.updateEmail}/>
+                            </div>
 
-                <div className="form-group">
-                    <label>Password</label>
-                    <input type="password" className="form-control" placeholder="Enter password" value={this.state.password} onChange={this.updatePassword}/>
-                </div>
-
-                <button type="submit" className="btn btn-primary btn-block">Submit</button>
-            </form>
+                            <div className="form-group">
+                                <label>Password</label>
+                                <input type="password" className="form-control" placeholder="Enter password" value={this.state.password} onChange={this.updatePassword}/>
+                            </div>
+                            <Button variant="contained" color="primary" onClick={this.submitForm}>Create Account</Button>
+                </Grid>
+            </Container>
             </>
         )
     }

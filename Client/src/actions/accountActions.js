@@ -2,7 +2,7 @@ import React from 'react';
 import {GET_ACCOUNTS, PARSE_ACCOUNTS} from './types';
 import axios from 'axios';
 
-export const getAccounts = (uid) => dispatch => {
+export const getAccounts = (uid, callback) => dispatch => {
     axios.post('http://192.168.86.119:3001/accounts',{uid})
          .then(res => {
                 if (res.status === 200){
@@ -10,6 +10,10 @@ export const getAccounts = (uid) => dispatch => {
                             type: GET_ACCOUNTS,
                             payload: {rawAccounts: res.data.accounts}
                         })
+                        
+                    if (callback) {
+                        callback(res.data.accounts);
+                    }
                 }
     });
 }
